@@ -29,8 +29,8 @@ def test_alembic_env_uses_application_metadata_and_database_url() -> None:
 
     contents = env_py.read_text()
     assert "from app.core.config import settings" in contents
-    assert "from app.db.base import Base" in contents
-    assert "import app.models" in contents
+    assert "from app.core.database import Base" in contents
+    assert "import app.qna.model" in contents
     assert "target_metadata = Base.metadata" in contents
     assert 'config.set_main_option("sqlalchemy.url", settings.database_url)' in contents
     assert "async_engine_from_config" in contents

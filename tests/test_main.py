@@ -28,7 +28,7 @@ def test_api_v1_health_check() -> None:
 
 
 def test_api_v1_database_health_check() -> None:
-    from app.db.session import get_db_session
+    from app.core.database import get_db_session
 
     class Result:
         def scalar_one(self) -> int:
@@ -53,7 +53,7 @@ def test_api_v1_database_health_check() -> None:
 
 
 def test_api_v1_database_health_check_returns_503_when_database_fails() -> None:
-    from app.db.session import get_db_session
+    from app.core.database import get_db_session
 
     class Session:
         async def execute(self, statement: object) -> None:

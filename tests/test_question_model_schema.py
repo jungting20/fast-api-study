@@ -4,8 +4,8 @@ import pytest
 from pydantic import ValidationError
 from sqlalchemy import String, Text, inspect
 
-from app.models.question import Question
-from app.schemas.question import QuestionCreate, QuestionRead, QuestionUpdate
+from app.qna.model import Question
+from app.qna.schema import QuestionCreate, QuestionRead, QuestionUpdate
 
 
 def test_question_model_table_definition() -> None:
