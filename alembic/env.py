@@ -3,14 +3,14 @@ from __future__ import annotations
 import asyncio
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
+import app.qna.model
+from alembic import context
 from app.core.config import settings
 from app.core.database import Base
-import app.qna.model
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.database_url)
