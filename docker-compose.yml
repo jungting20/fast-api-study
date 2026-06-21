@@ -1,4 +1,25 @@
 services:
+  web:
+    build: .
+    container_name: backend-web
+    restart: unless-stopped
+    command: >
+      sh -c "uv sync --frozen --no-dev &&
+      .venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    environment:
+      APP_NAME: ${APP_NAME:-Backend API}
+      DEBUG: ${DEBUG:-false}
+      API_V1_PREFIX: ${API_V1_PREFIX:-/api/v1}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-backend}:${POSTGRES_PASSWORD:-backend}@postgres:5432/${POSTGRES_DB:-backend}
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - .:/app
+      - web_venv:/app/.venv
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   postgres:
     image: postgres:16
     container_name: backend-postgres
@@ -19,4 +40,4 @@ services:
 
 volumes:
   postgres_data:
-
+  web_venv:
